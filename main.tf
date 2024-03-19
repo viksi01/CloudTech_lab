@@ -3,7 +3,6 @@ module "table_authors" {
   table_name = "authors"
 }
 
-
 module "table_courses" {
   source = "./modules/dynamodb"
   table_name = "courses"
