@@ -4,7 +4,7 @@ module "labels" {
 }
 
 resource "aws_dynamodb_table" "this" {
-  name           = var.table_name
+  name           = module.labels.id
   read_capacity  = 20
   write_capacity = 20
   hash_key       = "id"

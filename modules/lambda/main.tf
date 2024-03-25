@@ -11,7 +11,7 @@ data "archive_file" "get_all_authors" {
 
 resource "aws_lambda_function" "get_all_authors" {
   filename      = data.archive_file.get_all_authors.output_path
-  function_name = "get-all-authors-${module.labels.stage}-${module.labels.name}"
+  function_name = "get-all-authors"
   role          = var.get_all_authors_arn
   handler       = "get-all-authors.handler"
 
