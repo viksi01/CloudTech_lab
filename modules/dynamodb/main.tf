@@ -1,3 +1,8 @@
+module "labels" {
+  source  = "cloudposse/label/null"
+  name    = var.name
+}
+
 resource "aws_dynamodb_table" "this" {
   name           = var.table_name
   read_capacity  = 20
