@@ -4,6 +4,10 @@ const dynamodb = new AWS.DynamoDB({
   apiVersion: "2012-08-10",
 });
 
+const replaceAll = (str, find, replace) => {
+  return str.replace(new RegExp(find, "g"), replace);
+};
+
 exports.handler = (event, context, callback) => {
   const id = replaceAll(event.title, " ", "-").toLowerCase();
   const params = {
