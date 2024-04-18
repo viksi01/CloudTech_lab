@@ -607,18 +607,15 @@ resource "aws_api_gateway_integration_response" "course_id" {
 
 }
 
+# Deployment
+
+resource "aws_api_gateway_deployment" "deployment" {
+  depends_on = [
+    aws_api_gateway_integration.get_all_authors,
+    aws_api_gateway_integration.get_all_courses,
+  ]
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  stage_name = "dev"
+}
