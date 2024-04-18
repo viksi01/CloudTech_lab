@@ -1,12 +1,12 @@
 module "table_authors" {
-  source = "./modules/dynamodb"
-  name = "authors"
+  source     = "./modules/dynamodb"
+  name       = "authors"
   table_name = "authors"
 }
 
 module "table_courses" {
-  source = "./modules/dynamodb"
-  name = "courses"
+  source     = "./modules/dynamodb"
+  name       = "courses"
   table_name = "courses"
 
 }
@@ -19,12 +19,37 @@ module "iam" {
 }
 
 module "lambda" {
-    source = "./modules/lambda"
-    name   = "lambda"
+    source              = "./modules/lambda"
+    name                = "lambda"
     get_all_authors_arn = module.iam.get_all_authors_role_arn
-    save_course_arn = module.iam.save_course_role_arn
-    update_course_arn = module.iam.update_course_role_arn
+    save_course_arn     = module.iam.save_course_role_arn
+    update_course_arn   = module.iam.update_course_role_arn
     get_all_courses_arn = module.iam.get_all_courses_role_arn
-    get_course_arn = module.iam.get_course_role_arn
-    delete_course_arn = module.iam.delete_course_role_arn
+    get_course_arn      = module.iam.get_course_role_arn
+    delete_course_arn   = module.iam.delete_course_role_arn
 }
+
+module "api" {
+  source = "./modules/api"
+  name   = "api"
+
+  get_all_authors_arn = module.lambda.get_all_authors_arn
+  get_all_authors_invoke_arn = module.lambda.get_all_authors_invoke_arn
+
+  get_all_courses_arn = module.lambda.get_all_courses_arn
+  get_all_courses_invoke_arn = module.lambda.get_all_courses_invoke_arn
+
+  save_course_arn = module.lambda.save_course_arn
+  save_course_invoke_arn = module.lambda.save_course_invoke_arn
+
+  get_course_arn = module.lambda.get_course_arn
+  get_course_invoke_arn = module.lambda.get_course_invoke_arn
+
+  update_course_arn = module.lambda.update_course_arn
+  update_course_invoke_arn = module.lambda.update_course_invoke_arn
+
+  delete_course_arn = module.lambda.delete_course_arn
+  delete_course_invoke_arn = module.lambda.delete_course_invoke_arn
+
+}
+    
