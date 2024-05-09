@@ -52,4 +52,14 @@ module "api" {
   delete_course_invoke_arn = module.lambda.delete_course_invoke_arn
 
 }
-    
+
+module "s3" {
+  source = "./modules/s3"
+  name  = "s3"
+}
+
+module "cloudfront" {
+  source = "./modules/cloudfront"
+  name   = "cloudfront"
+  bucket_regional_domain_name = module.s3.bucket_regional_domain_name
+}
